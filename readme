@@ -1,0 +1,51 @@
+# Bayes NBA
+
+This project analyzes the impact of an NBA player on their teammates' shooting performance using a Bayesian approach. It leverages the `nba_api` to fetch detailed play-by-play data and calculates shooting splits for teammates when a target player is on and off the court.
+
+## Project Goal
+
+The primary goal is to quantify the "gravity" of a player. In basketball, some players, especially great shooters or offensive threats, are said to have "gravity" because they draw the attention of the defense, creating better shooting opportunities for their teammates. This project aims to verify and measure this effect by comparing teammate shooting percentages when a star player is on the court versus when they are on the bench.
+
+## Methodology
+
+The analysis is conducted in several steps:
+
+1.  **Data Retrieval**: The project uses the `nba_api` library to connect to the official NBA stats API. It retrieves game logs, play-by-play data, and player/team information.
+
+2.  **On/Off-Court Analysis**: The core of the project is the on/off-court analysis. The notebooks process play-by-play data to determine precisely when a specified player is on the floor and when they are on the bench.
+
+3.  **Shooting Split Calculation**: For each teammate, the project calculates their 2-point and 3-point shooting percentages under two conditions:
+    *   When the target player is ON the court.
+    *   When the target player is OFF the court.
+
+4.  **Bayesian Inference (Future Goal)**: The name of the project suggests a move towards Bayesian methods to analyze the collected data. This would allow for a more robust statistical analysis of the player's impact, taking into account prior beliefs and uncertainties.
+
+## Project Structure
+
+*   `main.ipynb`: Contains the initial data exploration and functions to identify a player's top teammates based on minutes played. It also has the basic functionality to get shooting splits for those teammates.
+*   `bayesnba.ipynb`: The first iteration of the detailed on/off-court analysis. It can process a full season of games for a player and their teammates.
+*   `updated_bayes.ipynb`: The most recent and advanced version of the analysis. It refines the on/off-court logic and integrates the teammate identification from `main.ipynb`. It provides a clearer comparison of teammate performance.
+*   `bracket-reover.py`: A small utility script to clean up data by removing brackets from strings.
+
+## How to Run
+
+1.  **Installation**: You will need Python and Jupyter Notebook installed. The main dependency is `nba_api`. You can install it using pip:
+    ```
+    pip install nba_api pandas
+    ```
+
+2.  **Running the Notebooks**:
+    *   Open and run the cells in `updated_bayes.ipynb`.
+    *   You can change the `player_name` and `season` variables in the `everything` function call at the end of the notebook to analyze different players.
+
+    **Note**: The scripts make numerous calls to the NBA API, and there are `time.sleep()` calls to avoid getting rate-limited. Running a full-season analysis for a player can take a significant amount of time.
+
+## Example
+
+To analyze Trae Young's impact on his teammates during the 2020-21 season, you would set the following in `updated_bayes.ipynb`:
+
+```python
+everything('trae young', '2020-21')
+```
+
+The output will show the prior shooting splits of his top teammates, and then the shooting data for those teammates when Trae Young was on and off the court. 
